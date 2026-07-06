@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.4.3 (2026-07-06)
+
+- Fix `paw info` / `paw rename` crashing with `AttributeError` when run without
+  `--api-url`/`--api-key` (they read the removed `paw.api_url`/`paw.api_key`
+  module attributes; now resolved via the function-based config API).
+- `--api-url` / `--api-key` now take effect on `compile`, `run`, and `login`
+  (previously accepted but silently ignored on those commands).
+- Docs: reference `paw.get_api_url()` / `paw.get_api_key()` instead of the
+  removed module attributes.
+- Add hermetic CLI auth test suite (`tests/test_cli_auth.py`) and a GitHub
+  Actions CI workflow running it on Python 3.9-3.12.
+
 ## 0.2.4 (2026-04-01)
 
 - Download reliability: asset endpoints return 202 Retry-After when program is still generating, eliminating 404 race conditions

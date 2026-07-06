@@ -14,11 +14,23 @@ All commands support --json for structured output (agent-friendly).
 
 import argparse
 import json
+import os
 import sys
+
+
+def _apply_auth_overrides(args):
+    """Let the global --api-url/--api-key flags take effect on commands that go
+    through the high-level ``paw.compile()``/``paw.function()``/``paw.login()``
+    paths, which resolve credentials from the environment/config only."""
+    if getattr(args, "api_url", None):
+        os.environ["PAW_API_URL"] = args.api_url
+    if getattr(args, "api_key", None):
+        os.environ["PAW_API_KEY"] = args.api_key
 
 
 def cmd_compile(args):
     import programasweights as paw
+    _apply_auth_overrides(args)
 
     if not args.json:
         print(f"Compiling: {args.spec[:80]}...")
@@ -59,6 +71,7 @@ def cmd_compile(args):
 
 def cmd_run(args):
     import programasweights as paw
+    _apply_auth_overrides(args)
 
     fn = paw.function(
         args.program, verbose=args.verbose,
@@ -74,6 +87,7 @@ def cmd_run(args):
 
 def cmd_login(args):
     import programasweights as paw
+    _apply_auth_overrides(args)
     paw.login(args.key)
     return 0
 

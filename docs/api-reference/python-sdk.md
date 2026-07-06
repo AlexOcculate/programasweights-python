@@ -128,8 +128,8 @@ export PAW_API_KEY=paw_sk_...
 
 | Name | Description |
 |------|-------------|
-| `paw.api_url` | Base URL for API requests. Default: `https://programasweights.com`. Override with `PAW_API_URL` env var. |
-| `paw.api_key` | API key for authenticated calls. Set via `paw.login()` or `PAW_API_KEY` env var. |
+| `paw.get_api_url()` | Base URL for API requests. Default: `https://programasweights.com`. Override with `PAW_API_URL` env var. |
+| `paw.get_api_key()` | API key for authenticated calls. Set via `paw.login()` or `PAW_API_KEY` env var. |
 | `paw.__version__` | Installed package version string. |
 
 ## Related
